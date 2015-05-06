@@ -46,6 +46,7 @@ mainModule.controller('defaultController', function($scope, $routeParams, $locat
 	}
 
 	$scope.destroyUser = function(user){
+		user.authenticity_token = $scope.authenticity_token 
 		console.log("Client/javascripts/controllers/defaultController - destroyUser(user) - user: ", user);
 		defaultFactory.destroyUser(user, function(){
 			defaultFactory.getAllUsers(function(users){

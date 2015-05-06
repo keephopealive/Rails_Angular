@@ -1,4 +1,4 @@
-mainModule.factory('defaultFactory', function($http) {
+mainModule.factory('defaultFactory', function($http, $resource) {
 	var factory = {};
 	var users = [];
 	var controllersToAlert = [];
@@ -40,6 +40,7 @@ mainModule.factory('defaultFactory', function($http) {
 		// 	factory.alertAllControllers();
 		// 	callback(returned_data_from_server);
 		// });
+
 		$http.post('/users', newUser).success(function(returned_data_from_server){
 			console.log("SUCCESSFUL - BACK TO FACTORY", returned_data_from_server);
 			factory.alertAllControllers();
@@ -50,10 +51,23 @@ mainModule.factory('defaultFactory', function($http) {
 
 	factory.destroyUser = function(user, callback){
 		console.log("Client/javascripts/factories/defaultFactory - destroyUser()");
-		$http.post('/user/destroyUser', user).success(function(returned_data_from_server){
+
+		
+		// $resource('/users/'+user.id, user, [actions], options);
+		var temp = {} 
+		// temp._method = 'delete'
+		temp.authenticity_token = user.authenticity_token
+		
+		$http.post('/users/'+user.id, temp).success(function(returned_data_from_server){
 			console.log("SUCCESSFUL - BACK TO FACTORY FROM DELETING USER", returned_data_from_server);
 			callback(returned_data_from_server);
 		});
+
+
+		// $http.post('/users/'+user.id, user).success(function(returned_data_from_server){
+		// 	console.log("SUCCESSFUL - BACK TO FACTORY FROM DELETING USER", returned_data_from_server);
+		// 	callback(returned_data_from_server);
+		// });
 	}
 
 
