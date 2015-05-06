@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-
+    @user = User.find(params[:id])
+    render :json => {user: @user}
   end
 
   # GET /users/new
@@ -21,6 +22,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+
   end
 
   # POST /users
@@ -38,7 +40,8 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    if @user.update(user_params)
+    @user = User.find(params[:id]).update(user_params)
+    if @user
       render :json => {status: true}        
     else
       render :json => {status: false}        

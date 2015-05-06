@@ -35,11 +35,6 @@ mainModule.factory('defaultFactory', function($http, $resource) {
 
 	factory.addUser = function(newUser, callback){
 		console.log("Client/javascripts/factories/defaultFactory - addUser() - newUser: ", newUser);
-		// $http.post('/user/addUser', newUser).success(function(returned_data_from_server){
-		// 	console.log("SUCCESSFUL - BACK TO FACTORY", returned_data_from_server);
-		// 	factory.alertAllControllers();
-		// 	callback(returned_data_from_server);
-		// });
 
 		$http.post('/users', newUser).success(function(returned_data_from_server){
 			console.log("SUCCESSFUL - BACK TO FACTORY", returned_data_from_server);
@@ -52,28 +47,19 @@ mainModule.factory('defaultFactory', function($http, $resource) {
 	factory.destroyUser = function(user, callback){
 		console.log("Client/javascripts/factories/defaultFactory - destroyUser()");
 
-		
-		// $resource('/users/'+user.id, user, [actions], options);
 		var temp = {} 
-		// temp._method = 'delete'
 		temp.authenticity_token = user.authenticity_token
-		
+
 		$http.post('/users/'+user.id, temp).success(function(returned_data_from_server){
 			console.log("SUCCESSFUL - BACK TO FACTORY FROM DELETING USER", returned_data_from_server);
 			callback(returned_data_from_server);
 		});
-
-
-		// $http.post('/users/'+user.id, user).success(function(returned_data_from_server){
-		// 	console.log("SUCCESSFUL - BACK TO FACTORY FROM DELETING USER", returned_data_from_server);
-		// 	callback(returned_data_from_server);
-		// });
 	}
 
 
 	factory.getUser = function(user, callback){
 		console.log("Client/javascripts/factories/defaultFactory - getUser() - user: ", user);
-		$http.post('/user/getUser', {id: user}).success(function(returned_data_from_server){
+		$http.get('/users/'+user.id).success(function(returned_data_from_server){
 			console.log("SUCCESSFUL - BACK TO FACTORY FROM GETTING USER", returned_data_from_server);
 			callback(returned_data_from_server);
 		});
@@ -82,7 +68,7 @@ mainModule.factory('defaultFactory', function($http, $resource) {
 
 	factory.updateUser = function(user, callback){
 		console.log("Client/javascripts/factories/defaultFactory - updateUser() - user: ", user);
-		$http.post('/user/updateUser', user).success(function(returned_data_from_server){
+		$http.post('/users/'+user.id+'/update', user).success(function(returned_data_from_server){
 			console.log("SUCCESSFUL - BACK TO FACTORY FROM UPDATING USER", returned_data_from_server);
 			callback(returned_data_from_server);
 		});

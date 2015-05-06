@@ -1,5 +1,6 @@
 mainModule.controller('defaultController', function($scope, $routeParams, $location, defaultFactory) {
 
+// INDEX (get all users)
 	var getAllUsers = function(){
 		console.log("Client/javascripts/controllers/defaultController - getAllUsers()");
 
@@ -7,7 +8,6 @@ mainModule.controller('defaultController', function($scope, $routeParams, $locat
 		// defaultFactory.addControllersToAlert(function(){alert("callback from defaultController")});
 		// // Write all code that you want this controller to be update
 		// defaultFactory.addControllersToAlert(function(data){alert(data)});
-
 
 		defaultFactory.getAllUsers(function(users){
 			console.log("Client/javascripts/controllers/defaultController - defaultFactory.getAllUsers(callback(users)) - users: ", users);
@@ -17,17 +17,10 @@ mainModule.controller('defaultController', function($scope, $routeParams, $locat
 
 	getAllUsers();
 
-
+// CREATE
 	$scope.addUser = function(newUser){
-		// Rails Related for CSRF
-			// $scope.addEntry = ->
-			// $scope.newEntry.authenticity_token = $scope.authenticity_token 
-			newUser.authenticity_token = $scope.authenticity_token 
-			// entry = Entry.save($scope.newEntry)
-			// $scope.entries.push(entry)
-			$scope.newEntry = {}
-		// END
-
+		newUser.authenticity_token = $scope.authenticity_token 
+		$scope.newEntry = {} // Clear input field entry from view page/partial
 		console.log("Client/javascripts/controllers/defaultController - addUser(newUser) - newUser: ", newUser);
 		defaultFactory.addUser(newUser,function(user){
 			if(user.errors)
@@ -45,6 +38,7 @@ mainModule.controller('defaultController', function($scope, $routeParams, $locat
 		});
 	}
 
+// DESTROY
 	$scope.destroyUser = function(user){
 		user.authenticity_token = $scope.authenticity_token 
 		console.log("Client/javascripts/controllers/defaultController - destroyUser(user) - user: ", user);
@@ -56,16 +50,19 @@ mainModule.controller('defaultController', function($scope, $routeParams, $locat
 		});
 	}
 
+// SHOW
 	$scope.showUser = function(user){
 		console.log("Client/javascripts/controllers/defaultController - showUser(user) - user: ", user);
 		$location.path('/oneUser'); //change partials from the controller // Loads new controller (unique controller to pull this user, per factory info get and set user in factory)
 		defaultFactory.getUser(user, function(user){
 			console.log("Client/javascripts/controllers/defaultController - defaultFactory.getUser(callback(user)) - user: ", user);
-			$scope.user = user;
+			$scope.user = user.user;
 		});
 	}
 
+// UPDATE
 	$scope.updateUser = function(user){
+		user.authenticity_token = $scope.authenticity_token; 
 		console.log("Client/javascripts/controllers/defaultController - updateUser(user) - user: ", user);
 		defaultFactory.updateUser(user, function(updatedUser){
 			console.log("Client/javascripts/controllers/defaultController - defaultFactory.updateUser(callback(updatedUser)) - updatedUser: ", updatedUser);

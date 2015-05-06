@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :users, :mains
   post 'users/:id' => 'users#destroy'
+  post 'users/:id/update' => 'users#update'
   root 'mains#index'
   
   # The priority is based upon order of creation: first created -> highest priority.
