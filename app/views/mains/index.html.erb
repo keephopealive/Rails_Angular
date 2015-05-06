@@ -1,0 +1,23 @@
+<h1>Mains#index</h1>
+<p>Find me in app/views/mains/index.html.erb</p>
+	<h1>Index.html - start</h1>
+	<div ng-app="mainModule">
+		<a href="#/">Default Partial</a>
+		<a href="#/secondPartial">Second Default Partial</a>
+		<div ng-controller="defaultController">
+		{{myName}}
+			<li ng-repeat="error in errors">{{error.message}}</li>
+			<input ng-model="newUser.name">
+			<input ng-model="newUser.status">
+			<button ng-click="addUser(newUser)">Add User</button>
+			<li ng-repeat="user in users">
+				<label>{{user.name}}</label>
+				<button ng-click="showUser(user)">Show</button>
+				<button ng-click="destroyUser(user)">Delete Me!!!</button>
+			</li>
+			<h4>ng-view - start</h4>
+			<div ng-view></div>
+			<h4>ng-view - end</h4>
+		</div>
+	</div>
+	<h1>Index.html - end</h1>

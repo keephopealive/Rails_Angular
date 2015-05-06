@@ -1,0 +1,15 @@
+<div>
+	<h2>Secondary Default Partial</h2>
+	<li ng-repeat="error in errors">{{error.message}}</li>
+	<input ng-model="newUser.name">
+	<input ng-model="newUser.status">
+	<button ng-click="addUser(newUser)">Add User</button>
+		{{myName}}
+
+	<li ng-repeat="user in users">
+		<label>Name: </label> <span>{{user.name}}</span>
+		<button ng-click="showUser(user)">Show (ng-click(user))</button>
+		<a href="#/user/show/{{user._id}}">Show (a href='#/user/show/{{user._id}}</a>
+		<button ng-click="destroyUser(user)">Destroy</button>
+	</li>
+</div>
