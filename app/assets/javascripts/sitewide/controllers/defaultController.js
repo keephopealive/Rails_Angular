@@ -3,10 +3,10 @@ mainModule.controller('defaultController', function($scope, $routeParams, $locat
 	var getAllUsers = function(){
 		console.log("Client/javascripts/controllers/defaultController - getAllUsers()");
 
-		// Add this controller in the Factory
-		defaultFactory.addControllersToAlert(function(){alert("callback from defaultController")});
-		// Write all code that you want this controller to be update
-		defaultFactory.addControllersToAlert(function(data){alert(data)});
+		// // Add this controller in the Factory
+		// defaultFactory.addControllersToAlert(function(){alert("callback from defaultController")});
+		// // Write all code that you want this controller to be update
+		// defaultFactory.addControllersToAlert(function(data){alert(data)});
 
 
 		defaultFactory.getAllUsers(function(users){
@@ -19,6 +19,15 @@ mainModule.controller('defaultController', function($scope, $routeParams, $locat
 
 
 	$scope.addUser = function(newUser){
+		// Rails Related for CSRF
+			// $scope.addEntry = ->
+			// $scope.newEntry.authenticity_token = $scope.authenticity_token 
+			newUser.authenticity_token = $scope.authenticity_token 
+			// entry = Entry.save($scope.newEntry)
+			// $scope.entries.push(entry)
+			$scope.newEntry = {}
+		// END
+
 		console.log("Client/javascripts/controllers/defaultController - addUser(newUser) - newUser: ", newUser);
 		defaultFactory.addUser(newUser,function(user){
 			if(user.errors)

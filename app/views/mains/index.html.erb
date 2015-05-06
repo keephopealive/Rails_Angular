@@ -4,7 +4,8 @@
 	<div ng-app="mainModule">
 		<a href="#/">Default Partial</a>
 		<a href="#/secondPartial">Second Default Partial</a>
-		<div ng-controller="defaultController">
+		<!-- <div ng-controller="defaultController"> -->
+		<div ng-controller="defaultController" ng-init="authenticity_token = '<%= form_authenticity_token %>'">
 		{{myName}}
 			<li ng-repeat="error in errors">{{error.message}}</li>
 			<input ng-model="newUser.name">
